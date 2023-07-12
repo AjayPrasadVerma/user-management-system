@@ -1,0 +1,19 @@
+.container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.sub-container {
+  min-width: 400px;
+  margin: 0px auto auto auto;
+  padding: 30px 40px;
+  background-color: black;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #545353;
+}
+
+.sub-container span {
+  display: inline-block;
+  width: 80px;
+}
