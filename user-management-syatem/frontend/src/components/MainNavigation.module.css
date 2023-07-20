@@ -32,7 +32,7 @@
 .btn {
   text-align: center;
 }
-.btn button {
+.btn a {
   background-color: black;
   font-size: 20px;
   color: #727171;
@@ -41,9 +41,11 @@
   margin-right: 20px;
   border-radius: 7px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
 }
 
-.btn button:hover {
+.btn a:hover {
   color: white;
   border: 1px solid white;
 }

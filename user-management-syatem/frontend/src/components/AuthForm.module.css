@@ -1,6 +1,7 @@
 .form-container {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 
 #sub-container {
@@ -22,7 +23,7 @@
 }
 
 .form-control input[type="text"],
-textarea {
+.form-control input[type="password"] {
   margin: 5px 0px;
   border: 1px solid #b7c4cf;
   background-color: black;
@@ -35,7 +36,7 @@ textarea {
 }
 
 .form-control input[type="text"]:focus,
-textarea:focus {
+.form-control input[type="password"]:focus {
   outline: none;
   border-color: #063860;
 }
@@ -66,7 +67,14 @@ a:hover {
   justify-content: flex-end;
 }
 
-.actions button {
+.action {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.actions button,
+.action a {
   font: inherit;
   cursor: pointer;
   padding: 0.5rem 1.5rem;
@@ -77,17 +85,19 @@ a:hover {
   border: none;
 }
 
-.actions button[type="button"] {
-  background-color: #d34e07;
-  color: #ffffff;
+.action a {
+  background-color: transparent;
+  font-weight: 400;
+  text-decoration: none;
+  color: #8e8c8c;
 }
 
 .actions button:hover {
   background-color: #026541;
 }
 
-.actions button[type="button"]:hover {
-  background-color: #893203;
+.action a:hover {
+  color: #ffffff;
 }
 
 .saveBtn:disabled,
@@ -98,8 +108,7 @@ a:hover {
   cursor: not-allowed;
 }
 
-.invalid input,
-.invalid textarea {
+.invalid input {
   margin: 5px 0px;
   outline: none;
   border: 1px solid #b40e0e;

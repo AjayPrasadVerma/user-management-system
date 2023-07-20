@@ -36,7 +36,12 @@ function MainNavigation() {
         </ul>
       </nav>
       <div className={classes.btn}>
-        <button>Account</button>
+        <NavLink
+          to="/auth?mode=login"
+          className={({ isActive }) => (isActive ? classes.active : undefined)}
+        >
+          Account
+        </NavLink>
       </div>
     </header>
   );
