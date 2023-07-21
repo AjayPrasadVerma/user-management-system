@@ -14,7 +14,9 @@ function UserForm() {
   const isLogin = searchParams.get("mode") === "login";
   const actionData = useActionData();
 
-  let inputValidate = (value) => value.trim() !== "";
+  let inputNameValidate = (value) => value.trim().length > 3;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let inputEmailValidate = (value) => emailRegex.test(value);
 
   const navigation = useNavigation();
 
@@ -23,14 +25,14 @@ function UserForm() {
     hasError: nameInputHasError,
     inputChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurHandler,
-  } = useInput(inputValidate);
+  } = useInput(inputNameValidate);
 
   const {
     isValid: enteredEmailIsValid,
     hasError: emailInputHasError,
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
-  } = useInput(inputValidate);
+  } = useInput(inputEmailValidate);
 
   const {
     value: enteredPassword,
@@ -38,7 +40,7 @@ function UserForm() {
     hasError: passwordInputHasError,
     inputChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
-  } = useInput(inputValidate);
+  } = useInput(inputNameValidate);
 
   const {
     value: enteredCPassword,
@@ -46,7 +48,7 @@ function UserForm() {
     hasError: cpasswordInputHasError,
     inputChangeHandler: cpasswordChangeHandler,
     inputBlurHandler: cpasswordBlurHandler,
-  } = useInput(inputValidate);
+  } = useInput(inputNameValidate);
 
   let formIsValid = false;
 
@@ -140,7 +142,7 @@ function UserForm() {
               />
               {passwordInputHasError ? (
                 <p className={classes["error-text"]}>
-                  Please enter valid phone number.
+                  Please enter valid password.
                 </p>
               ) : (
                 ""
@@ -158,9 +160,7 @@ function UserForm() {
                   onBlur={cpasswordBlurHandler}
                 />
                 {cpasswordInputHasError ? (
-                  <p className={classes["error-text"]}>
-                    Please enter valid phone number.
-                  </p>
+                  <p className={classes["error-text"]}>Please does't match.</p>
                 ) : (
                   ""
                 )}
