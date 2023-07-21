@@ -30,12 +30,20 @@ This repository contains the code for a User Management System App built using R
 - JSON Web Tokens (JWT): A standard for secure authentication and authorization.
 - Bcrypt: A library for password hashing and salting.
 
+## Requirements
+
+Make sure you have the following installed:
+
+- Node.js (https://nodejs.org)
+- MongoDB (https://www.mongodb.com)
+
 ## Installation
 
 1. Clone this repository to your local machine.
 
    ```shell
-   git clone https://github.com/AjayPrasadVerma/user-management-system.git
+   git clone https://github.com/your-username/user-management-system.git
+   cd user-management-system
    ```
 
 2. Navigate to the project directory.
@@ -190,39 +198,3 @@ This project is licensed under the [MIT License](LICENSE).
 Feel free to customize the content according to your project's specific requirements. The `README.md` file serves as a detailed guide for developers to understand your web app, its features, how to install it, and how to use its API endpoints.
 
 Make sure to update the installation steps, API endpoints, and any other relevant information specific to your project.
-
-# User Management System App
-
-This repository contains the code for a User Management System App built using React for the frontend, Node.js for the backend, and MongoDB for the database.
-
-## Features
-
-- User Registration:
-
-  - To create an account, the user needs to provide their Name, Email, and Password.
-
-- User Login:
-
-  - For logging in, users need to provide their Email and Password.
-
-- CRUD Operations:
-  - After logging in, users can perform CRUD operations on user data.
-  - The API endpoints for these operations are located at `/users`.
-
-## Requirements
-
-Make sure you have the following installed:
-
-- Node.js (https://nodejs.org)
-- MongoDB (https://www.mongodb.com)
-
-## Setup Instructions
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/user-management-system.git
-cd user-management-system
-
-
-```
