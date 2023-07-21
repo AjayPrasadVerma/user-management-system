@@ -14,11 +14,14 @@ function UserForm({ method, userData, heading }) {
   const actionData = useActionData();
 
   let inputValidate = false;
+  let inputEmailValidate = false;
 
   if (userData) {
     inputValidate = (value) => true;
   } else if (!userData) {
-    inputValidate = (value) => value.trim() !== "";
+    inputValidate = (value) => value.trim().length > 3;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    inputEmailValidate = (value) => emailRegex.test(value);
   }
 
   const navigation = useNavigation();
@@ -40,7 +43,7 @@ function UserForm({ method, userData, heading }) {
     hasError: emailInputHasError,
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
-  } = useInput(inputValidate);
+  } = useInput(inputEmailValidate);
 
   const {
     isValid: enteredPhoneIsValid,
