@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useRouteLoaderData } from "react-router-dom";
 import classes from "./UserNavigation.module.css";
 
 function CompanyNavigation() {
+  const token = useRouteLoaderData("root");
   return (
     <header className={classes.header}>
       <nav>
@@ -17,16 +18,18 @@ function CompanyNavigation() {
               All Users
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/users/new"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              New User
-            </NavLink>
-          </li>
+          {token && (
+            <li>
+              <NavLink
+                to="/users/new"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                New User
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

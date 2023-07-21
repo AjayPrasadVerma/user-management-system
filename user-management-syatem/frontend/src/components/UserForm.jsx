@@ -6,7 +6,7 @@ import {
   redirect,
   useActionData,
 } from "react-router-dom";
-
+import { getAuthToken } from "../util/auth";
 import classes from "./UserForm.module.css";
 import useInput from "../hooks/use-input";
 
@@ -184,8 +184,6 @@ export const action = async ({ request, params }) => {
     phone: data.get("phone"),
   };
 
-  console.log(userData);
-
   let url = "http://localhost:8181/users";
 
   if (method === "PUT") {
@@ -193,13 +191,16 @@ export const action = async ({ request, params }) => {
     url = "http://localhost:8181/users/" + id;
   }
 
+  const token = getAuthToken();
+
   try {
     const response = await fetch(url, {
       method: method,
-      body: JSON.stringify(userData),
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
+      body: JSON.stringify(userData),
     });
 
     if (response.status === 422) {
@@ -207,7 +208,7 @@ export const action = async ({ request, params }) => {
     }
 
     if (!response.ok) {
-      throw json({ message: "Could not save company." }, { status: 500 });
+      throw json({ message: "Could not save user." }, { status: 500 });
     }
 
     return redirect("/users");

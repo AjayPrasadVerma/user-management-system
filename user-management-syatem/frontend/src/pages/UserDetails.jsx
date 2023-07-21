@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import UserDetails from "../components/UserDetails";
 import { Suspense } from "react";
+import { getAuthToken } from "../util/auth";
 
 const UserDetailsPage = () => {
   /**
@@ -55,10 +56,15 @@ export async function loader({ params }) {
  */
 
 export const action = async ({ request, params }) => {
+  const token = getAuthToken();
+
   const id = params.userId;
 
   const response = await fetch("http://localhost:8181/users/" + id, {
     method: request.method,
+    headers: {
+      Authorization: "Bearer " + token,
+    },
   });
 
   if (!response.ok) {

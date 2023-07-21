@@ -14,11 +14,15 @@ import { action as manuplateUserAction } from "./components/UserForm";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
+import { action as logoutAction } from "./util/LogOut";
+import { tokenLoader, checkAuthLoader } from "./util/auth";
 
 const router = createBrowserRouter([
   {
     path: "",
     element: <RootLayout />,
+    id: "root",
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
       { path: "auth", element: <AuthenticationPage />, action: authAction },
@@ -45,6 +49,7 @@ const router = createBrowserRouter([
                 path: "edit",
                 element: <EditUserPage />,
                 action: manuplateUserAction,
+                loader: checkAuthLoader,
               },
             ],
           },
@@ -52,8 +57,13 @@ const router = createBrowserRouter([
             path: "new",
             element: <NewUserPage />,
             action: manuplateUserAction,
+            loader: checkAuthLoader,
           },
         ],
+      },
+      {
+        path: "logout",
+        action: logoutAction,
       },
     ],
   },

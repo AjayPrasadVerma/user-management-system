@@ -1,8 +1,6 @@
 import {
   Form,
   useNavigation,
-  json,
-  redirect,
   useActionData,
   useSearchParams,
   Link,
@@ -11,7 +9,7 @@ import {
 import classes from "./AuthForm.module.css";
 import useInput from "../hooks/use-input";
 
-function UserForm({ method, heading }) {
+function UserForm() {
   const [searchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
   const actionData = useActionData();
@@ -91,6 +89,7 @@ function UserForm({ method, heading }) {
       <div className={classes["form-container"]}>
         <div id={classes["sub-container"]}>
           <h1>{isLogin ? "Log in" : "Create Account"}</h1>
+          {actionData && actionData.message && <p>{actionData.message}</p>}
           <Form method="post">
             {!isLogin && (
               <div className={enteredUserName}>
@@ -191,52 +190,5 @@ function UserForm({ method, heading }) {
     </>
   );
 }
-
-/**
- * @description
- * making the API request to add new user and edit user details
- */
-
-export const action = async ({ request, params }) => {
-  const method = request.method;
-  const data = await request.formData();
-
-  const userData = {
-    name: data.get("name"),
-    email: data.get("email"),
-    phone: data.get("phone"),
-  };
-
-  console.log(userData);
-
-  let url = "http://localhost:8181/users";
-
-  if (method === "PUT") {
-    const id = params.userId;
-    url = "http://localhost:8181/users/" + id;
-  }
-
-  try {
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.status === 422) {
-      return response;
-    }
-
-    if (!response.ok) {
-      throw json({ message: "Could not save company." }, { status: 500 });
-    }
-
-    return redirect("/users");
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export default UserForm;

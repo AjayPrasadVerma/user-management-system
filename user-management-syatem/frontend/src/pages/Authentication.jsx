@@ -15,6 +15,7 @@ export const action = async ({ request }) => {
 
   const data = await request.formData();
   let response;
+  let responseData;
 
   if (mode === "login") {
     const authData = {
@@ -29,6 +30,16 @@ export const action = async ({ request }) => {
       },
       body: JSON.stringify(authData),
     });
+
+    responseData = await response.json();
+    const token = responseData.token;
+
+    localStorage.setItem("token", token);
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
+    localStorage.setItem("expire", expiration.toISOString());
+    window.alert("Login Success");
+    return redirect("/");
   } else if (mode === "signup") {
     const signupData = {
       name: data.get("name"),
@@ -37,8 +48,6 @@ export const action = async ({ request }) => {
       password_confirmation: data.get("password_confirmation"),
     };
 
-    console.log(signupData);
-
     response = await fetch("http://localhost:8181/" + mode, {
       method: "POST",
       headers: {
@@ -46,21 +55,15 @@ export const action = async ({ request }) => {
       },
       body: JSON.stringify(signupData),
     });
+
+    responseData = await response.json();
   }
 
-  if (!response.ok) {
-    throw json({ message: "Could not authenticate user." }, { status: 500 });
+  if (responseData.status === "failed") {
+    return responseData;
   }
 
-  const responseData = await response.json();
-  const token = responseData.token;
-
-  localStorage.setItem("token", token);
-  const expiration = new Date();
-  expiration.setHours(expiration.getHours() + 1);
-  localStorage.setItem("expire", expiration.toISOString());
-
-  return redirect("/");
+  return responseData;
 };
 
 export default AuthenticationPage;

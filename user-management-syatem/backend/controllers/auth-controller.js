@@ -23,19 +23,9 @@ const signupUser = async (req, res) => {
 
           await newUser.save();
 
-          const saved_user = await UserAuth.findOne({ email: email });
-
-          // Generate JWT Token
-          const token = jwt.sign(
-            { id: saved_user._id },
-            process.env.SECRET_KEY,
-            { expiresIn: "1h" }
-          );
-
           res.status(201).send({
             status: "Success",
-            message: "User successfully created",
-            token: token,
+            message: "Account successfully created",
           });
         } catch (error) {
           res.status(500).send({ status: "failed", message: error });
@@ -80,7 +70,9 @@ const loginUser = async (req, res) => {
             .send({ status: "failed", message: "Invalid email or password" });
         }
       } else {
-        res.status(404).send({ status: "failed", message: "Email not exist" });
+        res
+          .status(404)
+          .send({ status: "failed", message: "Account doesn't exist" });
       }
     } else {
       res
