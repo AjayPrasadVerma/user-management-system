@@ -11,7 +11,9 @@ import UserDetailsPage, {
   action as userDeleteAction,
 } from "./pages/UserDetails";
 import { action as manuplateUserAction } from "./components/UserForm";
-import AuthenticationPage from "./pages/Authentication";
+import AuthenticationPage, {
+  action as authAction,
+} from "./pages/Authentication";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "auth", element: <AuthenticationPage /> },
+      { path: "auth", element: <AuthenticationPage />, action: authAction },
       {
         path: "users",
         element: <CompanyRootLayout />,

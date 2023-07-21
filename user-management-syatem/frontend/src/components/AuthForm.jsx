@@ -52,12 +52,18 @@ function UserForm({ method, heading }) {
 
   let formIsValid = false;
 
-  if (enteredNameIsValid && enteredEmailIsValid && enteredPasswordIsValid) {
-    if (!isLogin) {
-      if (enteredCPassword === enteredPassword && enteredCPasswordIsValid) {
-        formIsValid = true;
-      }
-    } else {
+  if (!isLogin) {
+    if (
+      enteredNameIsValid &&
+      enteredEmailIsValid &&
+      enteredPasswordIsValid &&
+      enteredCPassword === enteredPassword &&
+      enteredCPasswordIsValid
+    ) {
+      formIsValid = true;
+    }
+  } else if (isLogin) {
+    if (enteredEmailIsValid && enteredPassword) {
       formIsValid = true;
     }
   }
@@ -85,24 +91,27 @@ function UserForm({ method, heading }) {
       <div className={classes["form-container"]}>
         <div id={classes["sub-container"]}>
           <h1>{isLogin ? "Log in" : "Create Account"}</h1>
-          <Form method={method}>
-            <div className={enteredUserName}>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                name="name"
-                onBlur={nameBlurHandler}
-                onChange={nameChangeHandler}
-              />
-              {nameInputHasError ? (
-                <p className={classes["error-text"]}>
-                  Please enter valid name.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
+          <Form method="post">
+            {!isLogin && (
+              <div className={enteredUserName}>
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  onBlur={nameBlurHandler}
+                  onChange={nameChangeHandler}
+                />
+                {nameInputHasError ? (
+                  <p className={classes["error-text"]}>
+                    Please enter valid name.
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+            )}
+
             <div className={enteredUserEmail}>
               <label htmlFor="email">Email</label>
               <input
@@ -145,7 +154,7 @@ function UserForm({ method, heading }) {
                 <input
                   id="cpassword"
                   type="password"
-                  name="cpassword"
+                  name="password_confirmation"
                   onChange={cpasswordChangeHandler}
                   onBlur={cpasswordBlurHandler}
                 />
